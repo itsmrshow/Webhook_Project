@@ -15,23 +15,28 @@ $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your ema
 $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
- 
+$com = $obj['commits'];
+$aut = $com['author'];
+$repo = $obj['repository'];
+$owner = $repo['owner'];
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Name: ". $obj['after']; //Print Name
+$body .= "Before: ". $obj['before']; //Print Name
 $body .= "\n";
-$body .= "Config: ". $obj['before']; //Print Email
+$body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
-$body .= "Events: ". $obj['ref']; //Print Message
+$body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Active: ". $obj['commits']; //Print Message
+$body .= "Id: ". $com['id']; //Print Message
 $body .= "\n";
-$body .= "URL: ". $obj['id']; //Print Message
+$body .= "Message: ". $com['message']; //Print Message
 $body .= "\n";
-$body .= "Content type: ". $obj['message']; //Print Message
+$body .= "Timestamp: ". $com['timestamp']; //Print Message
 $body .= "\n";
-$body .= "Secret: ". $obj['url']; //Print Message
+$body .= "URL: ". $com['url']; //Print Message
+$body .= "\n";
+$body .= "Added: ". $com['added']; //Print Message
 
 
 // send email
