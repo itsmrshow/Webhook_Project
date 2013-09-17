@@ -15,10 +15,7 @@ $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your ema
 $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
-$com = $obj['commits'];
-$aut = $com['author'];
-$repo = $obj['repository'];
-$owner = $repo['owner'];
+
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
@@ -30,21 +27,21 @@ $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
 $body .= "Id: ". $com['id']; //Print Message
 $body .= "\n";
-$body .= "Message: ". $com['message']; //Print Message
+$body .= "Message: ". $obj['commits']['message']; //Print Message
 $body .= "\n";
-$body .= "Timestamp: ". $com['timestamp']; //Print Message
+$body .= "Timestamp: ". $obj['commits']['timestamp']; //Print Message
 $body .= "\n";
-$body .= "URL: ". $com['url']; //Print Message
+$body .= "URL: ". $obj['commits']['url']; //Print Message
 $body .= "\n";
-$body .= "Added: ". $com['added']; //Print Message
+$body .= "Added: ". $obj['commits']['added']; //Print Message
 $body .= "\n";
-$body .= "Removed: ". $com['removed']; //Print Message
+$body .= "Removed: ". $obj['commits']['removed']; //Print Message
 $body .= "\n";
-$body .= "Modified: ". $com['modified']; //Print Message
+$body .= "Modified: ". $obj['commits']['modified']; //Print Message
 $body .= "\n";
-$body .= "Name: ". $aut['name']; //Print Message
+$body .= "Name: ". $obj['commits']['author']['name']; //Print Message
 $body .= "\n";
-$body .= "email: ". $aut['email']; //Print Message
+$body .= "email: ". $obj['commits']['author']['email']; //Print Message
 
 
 // send email
