@@ -12,7 +12,7 @@ $result = stripslashes_deep($_REQUEST['payload']);
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
-$subject = "JotForm Test Webhook"; //Email Subject
+$subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
  
