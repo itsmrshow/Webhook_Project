@@ -13,8 +13,12 @@
         {
                 exit;
         }
- 
- 
+
+	// Retrieve the request's body and parse it as JSON
+	$body = @file_get_contents('php://input');
+	$event_json = json_decode($body);
+
+	// Do something with $event_json
 ?>
 <html>
 <head>
@@ -23,7 +27,7 @@ hello world
 </h1>
 </head>
 <body>
-<p><?php echo $payload; ?>
+<p><?php echo $event_json; ?>
 </p>
 </body>
 </html>
