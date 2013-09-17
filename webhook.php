@@ -19,12 +19,19 @@ $obj = json_decode($result, true);
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "repo: ". $obj['repo']; //Print Name
+$body .= "Name: ". $obj['name']; //Print Name
 $body .= "\n";
-$body .= "Branch: ". $obj['branch']; //Print Email
+$body .= "Config: ". $obj['config']; //Print Email
 $body .= "\n";
-$body .= "Script: ". $obj['script']; //Print Message
-
+$body .= "Events: ". $obj['events']; //Print Message
+$body .= "\n";
+$body .= "Active: ". $obj['active']; //Print Message
+$body .= "\n";
+$body .= "URL: ". $obj['url']; //Print Message
+$body .= "\n";
+$body .= "Content type: ". $obj['content_type']; //Print Message
+$body .= "\n";
+$body .= "Secret: ". $obj['secret']; //Print Message
 
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
