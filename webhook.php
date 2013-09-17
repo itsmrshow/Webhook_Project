@@ -28,3 +28,12 @@ $body .= "Message: ". $obj['q4_message']; //Print Message
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
+<html>
+<head>
+</head>
+<body bgcolor="black">
+<h1 textalign="center" textcolor="green">
+Webhook from Github to Crisply
+</h1>
+</body>
+</html>
