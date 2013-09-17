@@ -27,7 +27,7 @@ $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
 $body .= "Id: ". $obj['id']; //Print Message
 $body .= "\n";
-$body .= "Message: ". $obj['commits'=>'message']; //Print Message
+$body .= "Message: ". $obj['commits']['message']; //Print Message
 $body .= "\n";
 $body .= "Timestamp: ". $obj['commits']['timestamp']; //Print Message
 $body .= "\n";
