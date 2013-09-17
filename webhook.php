@@ -1,33 +1,30 @@
 <?php
- 
-        // Turn off error reporting
-        error_reporting(0);
- 
-        try
-        {
-                // Decode the payload json string
-                $payload = json_decode($_REQUEST['payload']);
-				echo $payload;
-        }
-        catch(Exception $e)
-        {
-                exit;
-        }
 
-	// Retrieve the request's body and parse it as JSON
-	$body = @file_get_contents('php://input');
-	$event_json = json_decode($body);
+//Strips all slashes in an array
+function stripslashes_deep($value){
+    $value = is_array($value) ?
+                array_map('stripslashes_deep', $value) :
+                stripslashes($value);
+    return $value;
+}
+$result = stripslashes_deep($_REQUEST['rawRequest']);
 
-	// Do something with $event_json
+//email data
+$emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
+$emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
+$subject = "JotForm Test Webhook"; //Email Subject
+
+$obj = json_decode($result, true);
+ 
+// prepare email body text
+$body = "Contact Form Submissions"; //Title
+$body .= "\n";  //Nothing but new line
+$body .= "Name: ". $obj['q1_name']; //Print Name
+$body .= "\n";
+$body .= "Email: ". $obj['q3_email3']; //Print Email
+$body .= "\n";
+$body .= "Message: ". $obj['q4_message']; //Print Message
+
+// send email
+mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
-<html>
-<head>
-<h1>
-hello world
-</h1>
-</head>
-<body>
-<h2><?php echo $event_json; ?>
-</h2>
-</body>
-</html>
