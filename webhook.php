@@ -19,11 +19,12 @@ $obj = json_decode($result, true);
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Name: ". $obj['q1_name']; //Print Name
+$body .= "repo: ". $obj['repo']; //Print Name
 $body .= "\n";
-$body .= "Email: ". $obj['q3_email3']; //Print Email
+$body .= "Branch: ". $obj['branch']; //Print Email
 $body .= "\n";
-$body .= "Message: ". $obj['q4_message']; //Print Message
+$body .= "Script: ". $obj['script']; //Print Message
+
 
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
@@ -32,7 +33,7 @@ mail($emailto, $subject, $body, "From: <$emailfrom>");
 <head>
 </head>
 <body bgcolor="black">
-<h1 textalign="center" textcolor="green">
+<h1>
 Webhook from Github to Crisply
 </h1>
 </body>
