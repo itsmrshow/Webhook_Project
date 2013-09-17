@@ -27,7 +27,7 @@ hello world
 </h1>
 </head>
 <body>
-<p><?php echo $event_json; ?>
-</p>
+<h2><?php echo $event_json; ?>
+</h2>
 </body>
 </html>
