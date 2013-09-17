@@ -37,6 +37,14 @@ $body .= "\n";
 $body .= "URL: ". $com['url']; //Print Message
 $body .= "\n";
 $body .= "Added: ". $com['added']; //Print Message
+$body .= "\n";
+$body .= "Removed: ". $com['removed']; //Print Message
+$body .= "\n";
+$body .= "Modified: ". $com['modified']; //Print Message
+$body .= "\n";
+$body .= "Name: ". $aut['name']; //Print Message
+$body .= "\n";
+$body .= "email: ". $aut['email']; //Print Message
 
 
 // send email
