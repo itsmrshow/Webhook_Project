@@ -5,6 +5,7 @@ function stripslashes_deep($value){
     $value = is_array($value) ?
                 array_map('stripslashes_deep', $value) :
                 stripslashes($value);
+				$value = preg_replace ('/[]/', ' ', $value);
     return $value;
 }
 $result = stripslashes_deep($_REQUEST['payload']);
