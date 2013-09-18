@@ -39,10 +39,6 @@ $body .= "Removed: ". ($obj['commits'][0]['removed']); //Print Message
 $body .= "\n";
 $body .= "modified: ". ($obj['commits'][0]['modified']); //Print Message
 $body .= "\n";
-$body .= "name: ". ($obj['commits']['author']['name']); //Print Message
-$body .= "\n";
-$body .= "email: ". ($obj['commits']['author']['email']); //Print Message
-$body .= "\n";
 
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
