@@ -7,26 +7,29 @@ function stripslashes_deep($value){
                 stripslashes($value);
     return $value;
 }
+
 $result = stripslashes_deep($_REQUEST['payload']);
-$result=preg_replace('/.[.]./','',$result);
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
 $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
-
+$objNew;
+foreach($obj as $k=>$v) {
+    $objNew[$k] = $v;
+}
 
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Before: ". $obj['before']; //Print Name
+$body .= "Before: ". $objNew['before']; //Print Name
 $body .= "\n";
 $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
 $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Id: ". $obj['commits']["id"]; //Print Message
+$body .= "Id: ". $obj['id']; //Print Message
 $body .= "\n";
 $body .= "Message: ". $obj['commits']; //Print Message
 $body .= "\n";
