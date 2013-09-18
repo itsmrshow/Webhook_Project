@@ -16,50 +16,6 @@ $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
 
-// creating object of SimpleXMLElement
-$xml_git = new SimpleXMLElement("<?xml version=\"1.0\"?><object></object>");
-
-// function call to convert array to xml
-array_to_xml($obj,$xml_git);
-
-//saving generated xml file
-$xml_git->asXML('/xml');
-
-$additionalHeaders = "charset=UTF-8";
-$username = "m1Qy3WWSV1IbISTe4EBD";
-$password = "";
-$host = "http://seccareccia.crisply.com/api/"
-
-$process = curl_init($host);
-curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
-curl_setopt($process, CURLOPT_HEADER, 1);
-curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-curl_setopt($process, CURLOPT_TIMEOUT, 30);
-curl_setopt($process, CURLOPT_POST, 1);
-curl_setopt($process, CURLOPT_POSTFIELDS, $xml_git);
-curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-$return = curl_exec($process);
-curl_close($process);
-
-// function defination to convert array to xml
-function array_to_xml($obj, &$xml_git) {
-    foreach($obj as $key => $value) {
-        if(is_array($value)) {
-            if(!is_numeric($key)){
-                $subnode = $xml_git->addChild("$key");
-                array_to_xml($value, $subnode);
-            }
-            else{
-                $subnode = $xml_git->addChild("item$key");
-                array_to_xml($value, $subnode);
-            }
-        }
-        else {
-            $xml_git->addChild("$key","$value");
-        }
-    }
-}
-
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
@@ -81,6 +37,48 @@ $body .= "\n";
 
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
+
+
+// creating object of SimpleXMLElement
+$xml_git = new SimpleXMLElement("<?xml version=\"1.0\"?><object></object>");
+
+// function call to convert array to xml
+$xmlHolder = arrar2xml($obj);
+
+//saving generated xml file
+//$xml_git->asXML('/xml');
+
+$additionalHeaders = "charset=UTF-8";
+$username = "m1Qy3WWSV1IbISTe4EBD";
+$password = "";
+$host = "http://seccareccia.crisply.com/api/"
+
+$process = curl_init($host);
+curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
+curl_setopt($process, CURLOPT_HEADER, 1);
+curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+curl_setopt($process, CURLOPT_TIMEOUT, 30);
+curl_setopt($process, CURLOPT_POST, 1);
+curl_setopt($process, CURLOPT_POSTFIELDS, $xmlHolder);
+curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+$return = curl_exec($process);
+curl_close($process);
+
+// function defination to convert array to xml
+function array2xml($array, $xml = false){
+    if($xml === false){
+        $xml = new SimpleXMLElement('<root/>');
+    }
+    foreach($array as $key => $value){
+        if(is_array($value)){
+            array2xml($value, $xml->addChild($key));
+        }else{
+            $xml->addChild($key, $value);
+        }
+    }
+    return $xml->asXML();
+}
+
 
 ?>
 <html>
