@@ -57,12 +57,11 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-$hold = $doc->saveXML();
 //add comment
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-
+/**
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
@@ -78,6 +77,7 @@ curl_setopt($process, CURLOPT_POSTFIELDS, $hold);
 curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
+*/
 
 ?>
 <html>
