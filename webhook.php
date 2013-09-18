@@ -14,7 +14,7 @@ $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your emai
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
 $subject = "Github Test Webhook"; //Email Subject
 
-$obj = json_decode($result, true);
+$obj = var_dump(json_decode($result, true));
 
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
