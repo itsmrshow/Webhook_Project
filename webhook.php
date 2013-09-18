@@ -9,16 +9,13 @@ function stripslashes_deep($value){
 }
 
 $result = stripslashes_deep($_REQUEST['payload']);
+$dom = new DOMDocument();
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
 $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
-
-// function call to convert array to xml
-$xml = Array2XML::createXML('activity-item', $obj);
-echo $xml->saveXML();
 
 
 // prepare email body text
@@ -39,18 +36,19 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
+		$root = $dom->getElementsByTagName('reg')->item(0);
+		
+		$newItem = $dom->createElement('activity-item');
+		
+		$dateSection = $newItem->appendChild($dom->createElement($obj['commits'][0]['timestamp']));
+		
+		$root->appendChild($newItem);
+		
+		$xml = $dom->save('activity-item.xml');
+
 //add comment
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
-
-
-$post_data = array('xml' => $xml);
-$stream_options = array(
-    'http' => array(
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/xml; charset=UTF-8' . "\r\n",
-        'content' =>  http_build_query($post_data)));
-
 
 
 $additionalHeaders = "charset=UTF-8";
@@ -68,22 +66,6 @@ curl_setopt($process, CURLOPT_POSTFIELDS, $xmlHolder);
 curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
-
-// function defination to convert array to xml
-function array2xml($array, $xml = false){
-    if($xml === false){
-        $xml = new SimpleXMLElement('<root/>');
-    }
-    foreach($array as $key => $value){
-        if(is_array($value)){
-            array2xml($value, $xml->addChild($key));
-        }else{
-            $xml->addChild($key, $value);
-        }
-    }
-    return $xml->asXML();
-}
->>>>>>> 4a1071a0fa3b2e00c51fe19cfd1b361efda362b6
 
 
 ?>
