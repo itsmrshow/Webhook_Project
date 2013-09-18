@@ -41,8 +41,6 @@ $body .= "\n";
 $body .= "Modified: ". $obj['commits']; //Print Message
 $body .= "\n";
 $body .= "Name: ". $obj['commits']; //Print Message
-$body .= "\n";
-$body .= "email: ". $obj['commits']; //Print Message
 
 
 // send email
