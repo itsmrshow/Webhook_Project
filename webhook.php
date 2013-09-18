@@ -8,7 +8,7 @@ function stripslashes_deep($value){
     return $value;
 }
 $result = stripslashes_deep($_REQUEST['payload']);
-$result=preg_replace('/.+?({.+}).+/','$1',$result);
+$result=preg_replace('/.[.]./','',$result);
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
@@ -20,7 +20,7 @@ $obj = json_decode($result, true);
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Before: ". $result['before']; //Print Name
+$body .= "Before: ". $obj['before']; //Print Name
 $body .= "\n";
 $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
