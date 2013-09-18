@@ -15,25 +15,17 @@ $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your ema
 $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
-$objNew;
-foreach ($obj as $sub) { // Loop outer array
-  foreach ($sub as $val) { // Loop inner arrays
-    $val = trim($val);
-    $objNew[] = $val; // Add to result array
-    }
-  }
-
 
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Before: ". $objNew['before']; //Print Name
+$body .= "Before: ". $obj['before']; //Print Name
 $body .= "\n";
 $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
 $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Id: ". $objNew['id']; //Print Message
+$body .= "Id: ". $obj->commit[0]->id; //Print Message
 $body .= "\n";
 $body .= "Message: ". $objNew['message']; //Print Message
 $body .= "\n";
