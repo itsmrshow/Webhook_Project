@@ -16,11 +16,9 @@ $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
 
-
 // function call to convert array to xml
 $xml = Array2XML::createXML('activity-item', $obj);
 echo $xml->saveXML();
-
 
 
 // prepare email body text
@@ -45,8 +43,6 @@ $body .= "\n";
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-$url = "http://seccareccia.crisply.com/api/"
-$xml_git;
 
 $post_data = array('xml' => $xml);
 $stream_options = array(
@@ -55,8 +51,40 @@ $stream_options = array(
         'header'  => 'Content-type: application/xml; charset=UTF-8' . "\r\n",
         'content' =>  http_build_query($post_data)));
 
-$context  = stream_context_create($stream_options);
-$response = file_get_contents($url, null, $context);
+
+
+$additionalHeaders = "charset=UTF-8";
+$username = "m1Qy3WWSV1IbISTe4EBD";
+$password = "";
+$host = "http://seccareccia.crisply.com/api/"
+
+$process = curl_init($host);
+curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
+curl_setopt($process, CURLOPT_HEADER, 1);
+curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+curl_setopt($process, CURLOPT_TIMEOUT, 30);
+curl_setopt($process, CURLOPT_POST, 1);
+curl_setopt($process, CURLOPT_POSTFIELDS, $xmlHolder);
+curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+$return = curl_exec($process);
+curl_close($process);
+
+// function defination to convert array to xml
+function array2xml($array, $xml = false){
+    if($xml === false){
+        $xml = new SimpleXMLElement('<root/>');
+    }
+    foreach($array as $key => $value){
+        if(is_array($value)){
+            array2xml($value, $xml->addChild($key));
+        }else{
+            $xml->addChild($key, $value);
+        }
+    }
+    return $xml->asXML();
+}
+>>>>>>> 4a1071a0fa3b2e00c51fe19cfd1b361efda362b6
+
 
 ?>
 <html>
