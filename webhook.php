@@ -43,21 +43,26 @@ $doc->formatOutput = true;
 $root = $doc->createElement('activity-item');
 $root = $doc->appendChild($root);
 
-$title = $doc->createElement('GUID');
+$title = $doc->createElement('Date');
 $title = $root->appendChild($title);
 
 $text = $doc->createTextNode($obj['commits'][0]['timestamp']);
 $text = $title->appendChild($text);
 
+$title = $doc->createElement('Message');
+$title = $root->appendChild($title);
+
+$text = $doc->createTextNode($obj['commits'][0]['message']);
+$text = $title->appendChild($text);
+
 $body .= $doc->saveXML() . "\n";
 
-$doc->save("/xml/activity-item.xm");
-
+$hold = $doc->saveXML();
 //add comment
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-/**
+
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
@@ -69,11 +74,10 @@ curl_setopt($process, CURLOPT_HEADER, 1);
 curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
 curl_setopt($process, CURLOPT_TIMEOUT, 30);
 curl_setopt($process, CURLOPT_POST, 1);
-curl_setopt($process, CURLOPT_POSTFIELDS, $xmlHolder);
+curl_setopt($process, CURLOPT_POSTFIELDS, $hold);
 curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
-*/
 
 ?>
 <html>
