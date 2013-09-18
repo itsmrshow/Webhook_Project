@@ -16,8 +16,12 @@ $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
 $objNew;
-foreach($obj as $k=>$v) {
-    $objNew[$k] = $v;
+foreach ($obj as $sub) { // Loop outer array
+  foreach ($sub as $val) { // Loop inner arrays
+    $val = trim($val);
+    $objNew[] = $val; // Add to result array
+    }
+  }
 }
 
 // prepare email body text
@@ -29,11 +33,11 @@ $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
 $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Id: ". $obj['id']; //Print Message
+$body .= "Id: ". $objNew['id']; //Print Message
 $body .= "\n";
-$body .= "Message: ". $obj['commits']; //Print Message
+$body .= "Message: ". $objNew['message']; //Print Message
 $body .= "\n";
-$body .= "Timestamp: ". $obj['commits']; //Print Message
+$body .= "Timestamp: ". $objNew['timestamp']; //Print Message
 $body .= "\n";
 $body .= "URL: ". $result; //Print Message
 $body .= "\n";
