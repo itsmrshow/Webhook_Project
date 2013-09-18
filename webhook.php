@@ -5,7 +5,6 @@ function stripslashes_deep($value){
     $value = is_array($value) ?
                 array_map('stripslashes_deep', $value) :
                 stripslashes($value);
-				$value = preg_replace ('/[]/', ' ', $value);
     return $value;
 }
 $result = stripslashes_deep($_REQUEST['payload']);
@@ -27,7 +26,7 @@ $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
 $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Id: ". $obj['commits']; //Print Message
+$body .= "Id: ". $obj['commits']["id"]; //Print Message
 $body .= "\n";
 $body .= "Message: ". $obj['commits']; //Print Message
 $body .= "\n";
