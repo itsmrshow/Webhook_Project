@@ -25,22 +25,24 @@ $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
 $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
-$body .= "Id: ". $obj['commits']; //Print Message
+$body .= "ID: ". ($obj['commits'][0]['id']); //Print Message
 $body .= "\n";
 $body .= "Message: ". ($obj['commits'][0]['message']); //Print Message
 $body .= "\n";
-$body .= "Timestamp: ". $obj['timestamp']; //Print Message
+$body .= "timestamp: ". ($obj['commits'][0]['timestamp']); //Print Message
 $body .= "\n";
-$body .= "URL: ". $result; //Print Message
+$body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
-$body .= "Added: ". $obj['commits']; //Print Message
+$body .= "Added: ". ($obj['commits'][0]['added']); //Print Message
 $body .= "\n";
-$body .= "Removed: ". $obj['commits']; //Print Message
+$body .= "Removed: ". ($obj['commits'][0]['removed']); //Print Message
 $body .= "\n";
-$body .= "Modified: ". $obj['commits']; //Print Message
+$body .= "modified: ". ($obj['commits'][0]['modified']); //Print Message
 $body .= "\n";
-$body .= "Name: ". $obj['commits']; //Print Message
-
+$body .= "name: ". ($obj['commits']['author']['name']); //Print Message
+$body .= "\n";
+$body .= "email: ". ($obj['commits']['author']['email']); //Print Message
+$body .= "\n";
 
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
