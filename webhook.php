@@ -16,6 +16,7 @@ $subject = "Github Test Webhook"; //Email Subject
 
 $obj = json_decode($result, true);
 
+
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
@@ -27,21 +28,21 @@ $body .= "Ref: ". $obj['ref']; //Print Message
 $body .= "\n";
 $body .= "Id: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "Message: ". $obj['commits','id']; //Print Message
+$body .= "Message: ". $obj['commits']; //Print Message
 $body .= "\n";
 $body .= "Timestamp: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "URL: ". $obj['commits']['url']; //Print Message
+$body .= "URL: ". $obj['commits'] //Print Message
 $body .= "\n";
-$body .= "Added: ". $obj['commits']['added']; //Print Message
+$body .= "Added: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "Removed: ". $obj['commits']['removed']; //Print Message
+$body .= "Removed: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "Modified: ". $obj['commits']['modified']; //Print Message
+$body .= "Modified: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "Name: ". $obj['commits']['author']['name']; //Print Message
+$body .= "Name: ". $obj['commits']; //Print Message
 $body .= "\n";
-$body .= "email: ". $obj['commits']['author']['email']; //Print Message
+$body .= "email: ". $obj['commits']; //Print Message
 
 
 // send email
