@@ -8,13 +8,13 @@ function stripslashes_deep($value){
     return $value;
 }
 $result = stripslashes_deep($_REQUEST['payload']);
-
+$result=preg_replace('/.+?({.+}).+/','$1',$result);
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
 $subject = "Github Test Webhook"; //Email Subject
 
-$obj = var_dump(json_decode($result, true));
+$obj = json_decode($result, true);
 
 
 // prepare email body text
