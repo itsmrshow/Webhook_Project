@@ -49,8 +49,9 @@ $title = $root->appendChild($title);
 $text = $doc->createTextNode($obj['commits'][0]['timestamp']);
 $text = $title->appendChild($text);
 
-$body .= $doc->saveXML('activity-item.xml') . "\n";
+$body .= $doc->saveXML() . "\n";
 
+//$doc -> save('activity-item');
 
 //add comment
 // send email
