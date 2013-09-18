@@ -22,7 +22,7 @@ foreach ($obj as $sub) { // Loop outer array
     $objNew[] = $val; // Add to result array
     }
   }
-}
+
 
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
