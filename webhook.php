@@ -36,18 +36,21 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
-$dom = new DOMDocument();
-$root = $dom->getElementsByTagName('act')->item(0);
-		
-$newItem = $dom->createElement('activity-item');
-		
-$dateSection = $newItem->appendChild($dom->createElement('Timestamp');
-$dateData = $dom->createCDATASection($obj['commits'][0]['timestamp']);
-$dateSection->appendChild($dateData);
-		
-$root->appendChild($newItem);
-		
-$xml = $dom->save('activity-item.xml');
+$doc = new DOMDocument('1.0');
+// we want a nice output
+$doc->formatOutput = true;
+
+$root = $doc->createElement('activity-item');
+$root = $doc->appendChild($root);
+
+$title = $doc->createElement('GUID');
+$title = $root->appendChild($title);
+
+$text = $doc->createTextNode($obj['commits'][0]['timestamp']);
+$text = $title->appendChild($text);
+
+$body .= $doc->saveXML() . "\n";
+
 
 //add comment
 // send email
