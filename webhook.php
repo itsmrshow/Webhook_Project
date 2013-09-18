@@ -49,7 +49,7 @@ $title = $root->appendChild($title);
 $text = $doc->createTextNode($obj['commits'][0]['timestamp']);
 $text = $title->appendChild($text);
 
-$body .= $doc->saveXML() . "\n";
+$body .= $doc->saveXML(/xml/activity-item.xml) . "\n";
 
 //$doc -> save('activity-item');
 
