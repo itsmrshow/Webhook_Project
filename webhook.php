@@ -20,7 +20,7 @@ $obj = json_decode($result, true);
 // prepare email body text
 $body = "Contact Form Submissions"; //Title
 $body .= "\n";  //Nothing but new line
-$body .= "Before: ". $obj['before']; //Print Name
+$body .= "Before: ". $result['before']; //Print Name
 $body .= "\n";
 $body .= "After: ". $obj['after']; //Print Email
 $body .= "\n";
