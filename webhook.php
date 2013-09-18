@@ -9,7 +9,7 @@ function stripslashes_deep($value){
 }
 
 $result = stripslashes_deep($_REQUEST['payload']);
-$dom = new DOMDocument();
+
 //email data
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
@@ -36,21 +36,24 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
-		$root = $dom->getElementsByTagName('reg')->item(0);
+$dom = new DOMDocument();
+$root = $dom->getElementsByTagName('act')->item(0);
 		
-		$newItem = $dom->createElement('activity-item');
+$newItem = $dom->createElement('activity-item');
 		
-		$dateSection = $newItem->appendChild($dom->createElement($obj['commits'][0]['timestamp']));
+$dateSection = $newItem->appendChild($dom->createElement('Timestamp');
+$dateData = $dom->createCDATASection($obj['commits'][0]['timestamp']);
+$dateSection->appendChild($dateData);
 		
-		$root->appendChild($newItem);
+$root->appendChild($newItem);
 		
-		$xml = $dom->save('activity-item.xml');
+$xml = $dom->save('activity-item.xml');
 
 //add comment
 // send email
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-
+/**
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
@@ -66,7 +69,7 @@ curl_setopt($process, CURLOPT_POSTFIELDS, $xmlHolder);
 curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
-
+*/
 
 ?>
 <html>
