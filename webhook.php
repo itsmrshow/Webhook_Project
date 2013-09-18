@@ -51,6 +51,7 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
+$dom->save('activity-item.xml');
 
 //add comment
 // send email
