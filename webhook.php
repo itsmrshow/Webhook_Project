@@ -36,9 +36,9 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
-/**
+
 $doc = new DOMDocument('1.0');
-// we want a nice output
+
 $doc->formatOutput = true;
 
 $root = $doc->createElement('activity-item xmlns="http://crisply.com/api/v1"');
@@ -56,16 +56,13 @@ $title = $root->appendChild($title);
 $text = $doc->createTextNode($obj['commits'][0]['message']);
 $text = $title->appendChild($text);
 
-$body .= $doc->saveXML('activity-item.xml') . "\n";
-
-//add comment
-// send email
+$body .= $doc->saveXML() . "\n";
 
 
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
-$host = "http://seccareccia.crisply.com/api/"
+$host = "http://seccareccia.crisply.com/api/activity_items.xml"
 
 $process = curl_init($host);
 curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
@@ -73,69 +70,22 @@ curl_setopt($process, CURLOPT_HEADER, 1);
 curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
 curl_setopt($process, CURLOPT_TIMEOUT, 30);
 curl_setopt($process, CURLOPT_POST, 1);
-curl_setopt($process, CURLOPT_POSTFIELDS, $hold);
+curl_setopt($process, CURLOPT_POSTFIELDS, $doc->saveXML() );
 curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
-*/
+
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-$hold = toXml($obj);
-
-$body .=  $hold . "\n";
-
-	public static function toXml($data, $rootNodeName = 'data', $xml=null)
-	{
-		// turn off compatibility mode as simple xml throws a wobbly if you don't.
-		if (ini_get('zend.ze1_compatibility_mode') == 1)
-		{
-			ini_set ('zend.ze1_compatibility_mode', 0);
-		}
- 
-		if ($xml == null)
-		{
-			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
-		}
- 
-		// loop through the data passed in.
-		foreach($data as $key => $value)
-		{
-			// no numeric keys in our xml please!
-			if (is_numeric($key))
-			{
-				// make string key...
-				$key = "unknownNode_". (string) $key;
-			}
- 
-			// replace anything not alpha numeric
-			$key = preg_replace('/[^a-z]/i', '', $key);
- 
-			// if there is another array found recrusively call this function
-			if (is_array($value))
-			{
-				$node = $xml->addChild($key);
-				// recrusive call.
-				ArrayToXML::toXml($value, $rootNodeName, $node);
-			}
-			else 
-			{
-				// add single node.
-                                $value = htmlentities($value);
-				$xml->addChild($key,$value);
-			}
- 
-		}
-		// pass back as string. or simple xml object if you want!
-		return $xml->asXML();
-	}
+	
 
 ?>
 <html>
 <head>
 </head>
-<body bgcolor="black">
+<body bgcolor="blue">
 <h1>
-Webhook from Github to Crisply
+Webhook handler from Github to Crisply
 </h1>
 </body>
 </html>
