@@ -35,14 +35,13 @@ $body .= "timestamp: ". ($obj['commits'][0]['timestamp']); //Print Message
 $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
-$holdRoot = 'activity-item xmlns="http://crisply.com/api/v1"'
 
-$doc = new DOMDocument('1.0');
+$doc  = new DOMDocument('1.0', 'utf-8');
 
 $doc->formatOutput = true;
 
-$root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item', 'This is the root element!');
-$root = $doc->appendChild($root);
+$root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item');
+$doc->appendChild($root);
 
 $title = $doc->createElement('guid');
 $title = $root->appendChild($title);
