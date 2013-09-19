@@ -40,8 +40,8 @@ $doc = new DOMDocument('1.0');
 
 $doc->formatOutput = true;
 
-$element = $dom->createElementNS('http://crisply.com/api/v1', 'activity-item', 'This is the root element!');
-$dom->appendChild($element);
+$element = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item', 'This is the root element!');
+$doc->appendChild($element);
 
 $title = $doc->createElement('guid');
 $title = $root->appendChild($title);
