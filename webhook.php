@@ -58,27 +58,48 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 mail($emailto, $subject, $body, "From: <$emailfrom>");
-
+/**
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
-$host = "http://seccareccia.crisply.com/api/activity_items.xml"
 
-$process = curl_init($host);
-curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
-curl_setopt($process, CURLOPT_HEADER, 1);
-curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-curl_setopt($process, CURLOPT_TIMEOUT, 30);
-curl_setopt($process, CURLOPT_POST, 1);
-curl_setopt($process, CURLOPT_POSTFIELDS, $doc->saveXML() );
-curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-$return = curl_exec($process);
-curl_close($process);
-
-
-
-	
-
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_URL, 'https://seccareccia.crisply.com/api'); 
+curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
+curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));
+ 
+//Execute the request and also time the transaction ( optional )
+$start = array_sum(explode(' ', microtime()));
+$result = curl_exec($ch); 
+$stop = array_sum(explode(' ', microtime()));
+$totalTime = $stop - $start;
+ 
+//Check for errors ( again optional )
+if ( curl_errno($ch) ) {
+    $result = 'ERROR -> ' . curl_errno($ch) . ': ' . curl_error($ch);
+} else {
+    $returnCode = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    switch($returnCode){
+        case 200:
+            break;
+        default:
+            $result = 'HTTP ERROR -> ' . $returnCode;
+            break;
+    }
+}
+ 
+//Close the handle
+curl_close($ch);
+ 
+//Output the results and time
+echo 'Total time for request: ' . $totalTime . "\n";
+echo $result; 
+*/
 ?>
 <html>
 <head>
