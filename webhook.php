@@ -68,7 +68,7 @@ $text = $doc->createTextNode(20);
 $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
-mail($emailto, $subject, $body, "From: <$emailfrom>");
+
 
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
@@ -109,9 +109,9 @@ if ( curl_errno($ch) ) {
 curl_close($ch);
  
 //Output the results and time
-echo 'Total time for request: ' . $totalTime . "\n";
-echo $result; 
-
+$body =. 'Total time for request: ' . $totalTime . "\n";
+$body =. $result; 
+mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
 <html>
 <head>
