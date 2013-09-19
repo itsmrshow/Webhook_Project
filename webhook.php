@@ -58,7 +58,7 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 mail($emailto, $subject, $body, "From: <$emailfrom>");
-/**
+
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
@@ -99,7 +99,7 @@ curl_close($ch);
 //Output the results and time
 echo 'Total time for request: ' . $totalTime . "\n";
 echo $result; 
-*/
+
 ?>
 <html>
 <head>
