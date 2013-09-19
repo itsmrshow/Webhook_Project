@@ -47,7 +47,7 @@ $root = $doc->appendChild($root);
 $title = $doc->createElement('guid');
 $title = $root->appendChild($title);
 
-$text = $doc->createTextNode('github-activity-' + ($obj['commits'][0]['timestamp']));
+$text = $doc->createTextNode('github-activity-' .($obj['commits'][0]['timestamp']));
 $text = $title->appendChild($text);
 
 $title = $doc->createElement('text');
