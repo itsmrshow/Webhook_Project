@@ -38,7 +38,7 @@ $body .= "\n";
 
 $doc  = new DOMDocument('1.0', 'utf-8');
 
-$doc->formatOutput = true;
+$doc->formatOutput = false;
 
 $root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item');
 $doc->appendChild($root);
@@ -55,18 +55,6 @@ $title = $root->appendChild($title);
 $text = $doc->createTextNode($obj['commits'][0]['message']);
 $text = $title->appendChild($text);
 
-$title = $doc->createElement('author');
-$title = $root->appendChild($title);
-
-$text = $doc->createTextNode($obj['commits'][0]['author']['email']);
-$text = $title->appendChild($text);
-
-$title = $doc->createElement('duration');
-$title = $root->appendChild($title);
-
-$text = $doc->createTextNode(20);
-$text = $title->appendChild($text);
-
 $body .= $doc->saveXML() . "\n";
 
 
@@ -76,7 +64,7 @@ $password = "";
 $ch = curl_init(); 
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', 'charset: UTF-8'));
 curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_URL, 'https://seccareccia.crisply.com/api/activity_items.xml'); 
+curl_setopt($ch, CURLOPT_URL, 'http://requestb.in/1dmylvi1'); 
 curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -84,8 +72,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
 curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
  
-$result = curl_exec($ch); 
- 
+curl_exec($ch); 
 //Close the handle
 curl_close($ch);
  
