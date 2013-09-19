@@ -41,7 +41,7 @@ $doc = new DOMDocument('1.0');
 
 $doc->formatOutput = true;
 
-$root = $doc->createElement("activity-item xmlns='http://crisply.com/api/v1'");
+$root = $doc->createElement('activity-item');
 $root = $doc->appendChild($root);
 
 $title = $doc->createElement('Date');
