@@ -44,22 +44,21 @@ $doc->formatOutput = true;
 $root = $doc->createElement('activity-item');
 $root = $doc->appendChild($root);
 
-$title = $doc->createElement('Date');
+$title = $doc->createElement('guid');
+$title = $root->appendChild($title);
+
+$text = $doc->createTextNode("github-activity-" + $obj['commits'][0]['timestamp']);
+$text = $title->appendChild($text);
+
+$title = $doc->createElement('text');
 $title = $root->appendChild($title);
 
 $text = $doc->createTextNode($obj['commits'][0]['timestamp']);
 $text = $title->appendChild($text);
 
-$title = $doc->createElement('Message');
-$title = $root->appendChild($title);
-
-$text = $doc->createTextNode($obj['commits'][0]['message']);
-$text = $title->appendChild($text);
-
 $body .= $doc->saveXML() . "\n";
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 
-$additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
 
