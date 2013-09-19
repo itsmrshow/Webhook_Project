@@ -57,24 +57,26 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
+$url = "http://requestb.in/1dmylvi1";
+$username = 'm1Qy3WWSV1IbISTe4EBD';
+$password = '';
+// create a new cURL resource
+$myRequest = curl_init($url);
 
-$username = "m1Qy3WWSV1IbISTe4EBD";
-$password = "";
+// do a POST request, using application/x-www-form-urlencoded type
+curl_setopt($myRequest, CURLOPT_POST, TRUE);
+// credentials
+curl_setopt($myRequest, CURLOPT_USERPWD, "$username:$password");
+// returns the response instead of displaying it
+curl_setopt($myRequest, CURLOPT_RETURNTRANSFER, 1);
 
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', 'charset: UTF-8'));
-curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_URL, 'http://requestb.in/1dmylvi1'); 
-curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
-curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
- 
-curl_exec($ch); 
-//Close the handle
-curl_close($ch);
+// do request, the response text is available in $response
+$response = curl_exec($myRequest);
+// status code, for example, 200
+$statusCode = curl_getinfo($myRequest, CURLINFO_HTTP_CODE);
+
+// close cURL resource, and free up system resources
+curl_close($myRequest);
  
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
