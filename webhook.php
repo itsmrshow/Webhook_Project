@@ -40,7 +40,7 @@ $doc = new DOMDocument('1.0');
 // we want a nice output
 $doc->formatOutput = true;
 
-$root = $doc->createElement('activity-item');
+$root = $doc->createElement('activity-item xmlns="http://crisply.com/api/v1"');
 $root = $doc->appendChild($root);
 
 $title = $doc->createElement('Date');
@@ -55,7 +55,7 @@ $title = $root->appendChild($title);
 $text = $doc->createTextNode($obj['commits'][0]['message']);
 $text = $title->appendChild($text);
 
-$body .= $doc->saveXML() . "\n";
+$body .= $doc->saveXML('activity-item.xml') . "\n";
 
 //add comment
 // send email
