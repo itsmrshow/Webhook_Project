@@ -52,7 +52,19 @@ $text = $title->appendChild($text);
 $title = $doc->createElement('text');
 $title = $root->appendChild($title);
 
-$text = $doc->createTextNode($obj['commits'][0]['timestamp']);
+$text = $doc->createTextNode($obj['commits'][0]['message']);
+$text = $title->appendChild($text);
+
+$title = $doc->createElement('author');
+$title = $root->appendChild($title);
+
+$text = $doc->createTextNode($obj['commits'][0]['author']['email']);
+$text = $title->appendChild($text);
+
+$title = $doc->createElement('duration');
+$title = $root->appendChild($title);
+
+$text = $doc->createTextNode(20);
 $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
