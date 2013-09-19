@@ -62,6 +62,8 @@ $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
 
 $ch = curl_init(); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', 'charset: UTF-8'));
+curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_URL, 'https://seccareccia.crisply.com/api/activity_items.xml'); 
 curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
