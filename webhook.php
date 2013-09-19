@@ -83,7 +83,6 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
 curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));
  
 $result = curl_exec($ch); 
  
