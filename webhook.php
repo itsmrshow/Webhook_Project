@@ -41,7 +41,7 @@ $doc = new DOMDocument('1.0');
 
 $doc->formatOutput = true;
 
-$root = $doc->createElement('activity-item');
+$root = $doc->createElement('activity-item xmlns=\"http://crisply.com/api/v1\"');
 $root = $doc->appendChild($root);
 
 $title = $doc->createElement('guid');
@@ -63,7 +63,7 @@ $username = "m1Qy3WWSV1IbISTe4EBD";
 $password = "";
 
 $ch = curl_init(); 
-curl_setopt($ch, CURLOPT_URL, 'https://seccareccia.crisply.com/api'); 
+curl_setopt($ch, CURLOPT_URL, 'https://seccareccia.crisply.com/api/activity_items.xml'); 
 curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
