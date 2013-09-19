@@ -57,7 +57,7 @@ $text = $doc->createTextNode($obj['commits'][0]['message']);
 $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
-
+mail($emailto, $subject, $body, "From: <$emailfrom>");
 
 $additionalHeaders = "charset=UTF-8";
 $username = "m1Qy3WWSV1IbISTe4EBD";
@@ -75,7 +75,7 @@ curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 $return = curl_exec($process);
 curl_close($process);
 
-mail($emailto, $subject, $body, "From: <$emailfrom>");
+
 
 	
 
