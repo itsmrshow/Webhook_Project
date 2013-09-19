@@ -85,32 +85,11 @@ curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));
  
-//Execute the request and also time the transaction ( optional )
-$start = array_sum(explode(' ', microtime()));
 $result = curl_exec($ch); 
-$stop = array_sum(explode(' ', microtime()));
-$totalTime = $stop - $start;
- 
-//Check for errors ( again optional )
-if ( curl_errno($ch) ) {
-    $result = 'ERROR -> ' . curl_errno($ch) . ': ' . curl_error($ch);
-} else {
-    $returnCode = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    switch($returnCode){
-        case 200:
-            break;
-        default:
-            $result = 'HTTP ERROR -> ' . $returnCode;
-            break;
-    }
-}
  
 //Close the handle
 curl_close($ch);
  
-//Output the results and time
-$body =. 'Total time for request: ' . $totalTime . "\n";
-$body =. $result; 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
 <html>
