@@ -60,10 +60,9 @@ $body .= $doc->saveXML() . "\n";
 $host = "http://seccareccia.crisply.com/api/activity_item.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
 $password = "";
-$additionalHeaders = "X-Crisply-Authentication";
 
 $process = curl_init($host);
-curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
+curl_setopt($process, CURLOPT_HTTPHEADER, 'Content-Type: application/xml');
 curl_setopt($process, CURLOPT_HEADER, 1);
 curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
 curl_setopt($process, CURLOPT_TIMEOUT, 30);
