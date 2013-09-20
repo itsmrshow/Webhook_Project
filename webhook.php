@@ -57,30 +57,20 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-$url = "http://seccareccia.crisply.com/api/activity_item.xml";
+$host = "http://seccareccia.crisply.com/api/activity_item.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
 $password = "";
 
-$credentials = 'm1Qy3WWSV1IbISTe4EBD@seccareccia.crisply.com';
-$header_array = array('Expect' => '',
-                'From' => 'User A');
-$ssl_array = array('version' => SSL_VERSION_SSLv3);
-$options = array(headers => $header_array,
-                httpauth => $credentials,
-                httpauthtype => HTTP_AUTH_BASIC,
-                protocol => HTTP_VERSION_1_1,
-                ssl => $ssl_array);
-                
-//create the httprequest object                
-$httpRequest_OBJ = new httpRequest($url, HTTP_METH_POST, $options);
-//add the content type
-$httpRequest_OBJ->setContentType = 'Content-Type: application/xml';
-//add the raw post data
-$httpRequest_OBJ->setRawPostData ($doc->saveXML());
-//send the http request
-$result = $httpRequest_OBJ->send();
-//print out the result
-echo "<pre>"; print_r($result); echo "</pre>";
+$process = curl_init($host);
+curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', $additionalHeaders));
+curl_setopt($process, CURLOPT_HEADER, 1);
+curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+curl_setopt($process, CURLOPT_TIMEOUT, 30);
+curl_setopt($process, CURLOPT_POST, 1);
+curl_setopt($process, CURLOPT_POSTFIELDS, $doc->saveXML());
+curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+$return = curl_exec($process);
+curl_close($process);
  
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
