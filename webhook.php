@@ -57,8 +57,8 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-//$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
- $URL = "http://requestb.in/135vbk21";
+$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
+//$URL = "http://requestb.in/135vbk21";
 $ch = curl_init($URL);
 curl_setopt($ch, CURLOPT_MUTE, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
