@@ -59,18 +59,19 @@ $body .= $doc->saveXML() . "\n";
 
 $url = "http://seccareccia.crisply.com/api/activity_item.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
+$password = "";
  
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_MUTE, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_USERPWD, "$username");
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml'));
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML());
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$output = curl_exec($ch);
-			curl_close($ch);
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_MUTE, 1);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml'));
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML());
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$output = curl_exec($ch);
+	curl_close($ch);
  
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
