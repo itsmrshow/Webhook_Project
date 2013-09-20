@@ -36,26 +36,8 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
-$doc  = new DOMDocument('1.0', 'utf-8');
-
-$doc->formatOutput = false;
-
-$root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item');
-$doc->appendChild($root);
-
-$title = $doc->createElement('guid');
-$title = $root->appendChild($title);
-
-$text = $doc->createTextNode('github-activity-' .($obj['commits'][0]['timestamp']));
-$text = $title->appendChild($text);
-
-$title = $doc->createElement('text');
-$title = $root->appendChild($title);
-
-$text = $doc->createTextNode($obj['commits'][0]['message']);
-$text = $title->appendChild($text);
-
-$body .= $doc->saveXML() . "\n";
+$doc  = '<?xml version="1.0" encoding="utf-8"?>
+<activity-item xmlns="http://crisply.com/api/v1"><guid>github-activity-'.($obj['commits'][0]['timestamp'])'</guid><text>'.($obj['commits'][0]['message'])'</text></activity-item>'
 
 //$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
 //$URL = "http://requestb.in/135vbk21";
@@ -78,9 +60,9 @@ fputs($fp, "Authorization: Basic ".$string."\r\n");
 fputs($fp, "User-Agent: ".$agent."\n");
 fputs($fp, "Host: $host\n");
 fputs($fp, "Content-type: application/x-www-form-urlencoded\n");
-fputs($fp, "Content-length: ".strlen($doc->saveXML())."\n");
+fputs($fp, "Content-length: ".strlen($doc)."\n");
 fputs($fp, "Connection: close\n\n");
-fputs($fp, $doc->saveXML());
+fputs($fp, $doc);
 for ($i = 1; $i < 10; $i++){$reply = fgets($fp, 256);}
 fclose($fp);
 }
