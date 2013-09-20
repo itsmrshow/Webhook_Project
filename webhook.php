@@ -36,8 +36,7 @@ $body .= "\n";
 $body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
 $body .= "\n";
 
-$doc  = '<?xml version="1.0" encoding="utf-8"?>
-<activity-item xmlns="http://crisply.com/api/v1"><guid>github-activity-'.($obj['commits'][0]['timestamp'])'</guid><text>'.($obj['commits'][0]['message'])'</text></activity-item>'
+$doc  = '<?xml version="1.0" encoding="utf-8"?><activity-item xmlns="http://crisply.com/api/v1"><guid>github-activity-'.($obj['commits'][0]['timestamp']).'</guid><text>'.($obj['commits'][0]['message']).'</text></activity-item>'
 
 //$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
 //$URL = "http://requestb.in/135vbk21";
