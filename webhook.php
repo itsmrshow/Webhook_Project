@@ -80,7 +80,7 @@ fputs($fp, "Host: $host\n");
 fputs($fp, "Content-type: application/x-www-form-urlencoded\n");
 fputs($fp, "Content-length: ".strlen($doc->saveXML())."\n");
 fputs($fp, "Connection: close\n\n");
-fputs($fp, $data_to_send);
+fputs($fp, $doc->saveXML());
 for ($i = 1; $i < 10; $i++){$reply = fgets($fp, 256);}
 fclose($fp);
 }
