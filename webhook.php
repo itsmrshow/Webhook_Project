@@ -57,7 +57,7 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-$url = "http://requestb.in/135vbk21";
+$url = "http://seccareccia.crisply.com/api/activity_item.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
  
 			$ch = curl_init($url);
@@ -65,6 +65,7 @@ $username = 'm1Qy3WWSV1IbISTe4EBD';
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_USERPWD, "$username");
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml'));
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML());
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
