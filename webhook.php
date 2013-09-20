@@ -60,16 +60,27 @@ $body .= $doc->saveXML() . "\n";
 $url = "http://seccareccia.crisply.com/api/activity_item.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
 $password = "";
- 
-$r = new HttpRequest($url, HttpRequest::METH_POST);
-$r->setOptions(array('cookies' => array('lang' => 'de')));
-$r->addPostFields(array('user' => $username, 'pass' => ''));
-$r->addPostFile('activity-item', 'xmlfile', 'application/xml');
-try {
-    echo $r->send()->$doc->saveXML();
-} catch (HttpException $ex) {
-    echo $ex;
-}
+
+$credentials = 'm1Qy3WWSV1IbISTe4EBD@seccareccia.crisply.com';
+$header_array = array('Expect' => '',
+                'From' => 'User A');
+$ssl_array = array('version' => SSL_VERSION_SSLv3);
+$options = array(headers => $header_array,
+                httpauth => $credentials,
+                httpauthtype => HTTP_AUTH_BASIC,
+                protocol => HTTP_VERSION_1_1,
+                ssl => $ssl_array);
+                
+//create the httprequest object                
+$httpRequest_OBJ = new httpRequest($url, HTTP_METH_POST, $options);
+//add the content type
+$httpRequest_OBJ->setContentType = 'Content-Type: application/xml';
+//add the raw post data
+$httpRequest_OBJ->setRawPostData ($doc->saveXML());
+//send the http request
+$result = $httpRequest_OBJ->send();
+//print out the result
+echo "<pre>"; print_r($result); echo "</pre>";
  
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
