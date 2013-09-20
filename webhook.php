@@ -59,16 +59,30 @@ $body .= $doc->saveXML() . "\n";
 
 $URL = "http://seccareccia.crisply.com/api/activity_items.xml";
 //$URL = "http://requestb.in/135vbk21";
-$ch = curl_init($URL);
-curl_setopt($ch, CURLOPT_MUTE, 1);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml','x-crisply-application: m1Qy3WWSV1IbISTe4EBD'));
-curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML());
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$output = curl_exec($ch);
-curl_close($ch);
+
+HTTPpost("seccareccia.crisply.com","/api/activity_items.xml",$doc->saveXML(),"m1Qy3WWSV1IbISTe4EBD","","Mozilla/4.0 
+(compatible; MSIE 5.5; Windows NT 5.0)");
+
+function HTTPost($host, $path, $data_to_send,$user,$pass,$agent) {
+$fp = fsockopen($host,80, &$err_num, &$err_msg, 10);
+if (!$fp) {
+echo "$err_msg ($err_num)<br>\n";
+} else {
+$auth = $user.":".$pass ; 
+$string=base64_encode($auth);
+echo $string;
+fputs($fp, "POST $path HTTP/1.1\r\n");
+fputs($fp, "Authorization: Basic ".$string."\r\n");
+fputs($fp, "User-Agent: ".$agent."\n");
+fputs($fp, "Host: $host\n");
+fputs($fp, "Content-type: application/x-www-form-urlencoded\n");
+fputs($fp, "Content-length: ".strlen($data_to_send)."\n");
+fputs($fp, "Connection: close\n\n");
+fputs($fp, $data_to_send);
+for ($i = 1; $i < 10; $i++){$reply = fgets($fp, 256);}
+fclose($fp);
+}
+}
 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
