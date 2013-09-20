@@ -64,7 +64,7 @@ $password = "";
 $ch = curl_init($URL);
 curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-Type: application/x-www-form-urlencoded');
 curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+curl_setopt($ch, CURLOPT_USERPWD, $username );
 curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 curl_setopt($ch, CURLOPT_MUTE, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
