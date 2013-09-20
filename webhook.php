@@ -44,7 +44,7 @@ $doc  = '<?xml version="1.0" encoding="utf-8"?>
 $user = "m1Qy3WWSV1IbISTe4EBD";
 $pass = "";
 $host = "http://requestb.in";
-$path = "135vbk21";
+$path = "/135vbk21";
 $agent = "Mozilla/4.0 
 (compatible; MSIE 5.5; Windows NT 5.0)";
 
