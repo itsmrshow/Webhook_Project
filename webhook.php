@@ -61,8 +61,8 @@ $body .= $doc->saveXML() . "\n";
 //$URL = "http://requestb.in/135vbk21";
 $user = "m1Qy3WWSV1IbISTe4EBD";
 $pass = "";
-$host = "seccareccia.crisply.com";
-$path = "/api/activity_items.xml";
+$host = "http://requestb.in";
+$path = "135vbk21";
 $agent = "Mozilla/4.0 
 (compatible; MSIE 5.5; Windows NT 5.0)";
 
