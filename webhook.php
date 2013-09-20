@@ -63,7 +63,6 @@ $user = "m1Qy3WWSV1IbISTe4EBD";
 $pass = "";
 $host = "seccareccia.crisply.com";
 $path = "/api/activity_items.xml";
-$data_to_send = $doc->saveXML();
 $agent = "Mozilla/4.0 
 (compatible; MSIE 5.5; Windows NT 5.0)";
 
@@ -79,7 +78,7 @@ fputs($fp, "Authorization: Basic ".$string."\r\n");
 fputs($fp, "User-Agent: ".$agent."\n");
 fputs($fp, "Host: $host\n");
 fputs($fp, "Content-type: application/x-www-form-urlencoded\n");
-fputs($fp, "Content-length: ".strlen($data_to_send)."\n");
+fputs($fp, "Content-length: ".strlen($doc->saveXML())."\n");
 fputs($fp, "Connection: close\n\n");
 fputs($fp, $data_to_send);
 for ($i = 1; $i < 10; $i++){$reply = fgets($fp, 256);}
