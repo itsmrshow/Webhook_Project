@@ -59,10 +59,10 @@ $body .= $doc->saveXML() . "\n";
 
 $URL = "http://seccareccia.crisply.com/api/activity_items.xml";
 //$URL = "http://requestb.in/135vbk21";
-
+<?
 HTTPpost("seccareccia.crisply.com","/api/activity_items.xml",$doc->saveXML(),"m1Qy3WWSV1IbISTe4EBD","","Mozilla/4.0 
 (compatible; MSIE 5.5; Windows NT 5.0)");
-
+?>
 function HTTPost($host, $path, $data_to_send,$user,$pass,$agent) {
 $fp = fsockopen($host,80, &$err_num, &$err_msg, 10);
 if (!$fp) {
