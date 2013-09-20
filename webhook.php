@@ -57,24 +57,19 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
-$username = 'm1Qy3WWSV1IbISTe4EBD';
-$password = "";
-
+//$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
+ $URL = "http://requestb.in/135vbk21";
 $ch = curl_init($URL);
-curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-Type: application/x-www-form-urlencoded');
-curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_USERPWD, $username );
-curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 curl_setopt($ch, CURLOPT_MUTE, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml','x-crisply-application: m1Qy3WWSV1IbISTe4EBD'));
 curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML());
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $output = curl_exec($ch);
 curl_close($ch);
- 
+
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
 <html>
