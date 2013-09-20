@@ -57,7 +57,7 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-$URL = "http://requestb.in/135vbk21";
+$URL = "http://seccareccia.crisply.com/api/activity_items.xml";
 $username = 'm1Qy3WWSV1IbISTe4EBD';
 $password = "";
 
