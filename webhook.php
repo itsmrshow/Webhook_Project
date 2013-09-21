@@ -56,11 +56,6 @@ $text = $title->appendChild($text);
 
 $body .= $doc->saveXML() . "\n";
 
-
-
-'Content-type: application/xml; charset=utf-8; X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD')
-
- 
 $tuCurl = curl_init(); 
 curl_setopt($tuCurl, CURLOPT_URL, "http://requestb.in/13w5d631"); 
 curl_setopt($tuCurl, CURLOPT_PORT , 443); 
