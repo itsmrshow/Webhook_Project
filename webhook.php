@@ -1,5 +1,5 @@
 <?php
-
+import HttpRequest;
 //Strips all slashes in an array
 function stripslashes_deep($value){
     $value = is_array($value) ?
@@ -58,15 +58,10 @@ $text = $title->appendChild($text);
 $body .= $doc->saveXML() . "\n";
 
 
-$r = new HttpRequest('http://requestb.in/13w5d631', HttpRequest::METH_POST);
-$r->addHeaders(array('Content-Type' => 'application/xml', 'charset' => 'UTF-8', 'X-Crisply-Authentication' => 'm1Qy3WWSV1IbISTe4EBD'));
-$r->setOptions(array('cookies' => array('lang' => 'de')));
-$r->addRawPostData($doc->saveXML());
-try {
-    echo $r->send()->getBody();
-} catch (HttpException $ex) {
-    echo $ex;
-}
+$request = new HTTP_Request2('http://requestb.in/13w5d631');
+$request->setMethod(HTTP_Request2::METHOD_POST)
+    ->setHeader('Content-type: application/xml; charset=utf-8')
+    ->setBody($doc->saveXML());
  
 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
