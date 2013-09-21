@@ -38,7 +38,7 @@ $body .= "\n";
 
 $doc  = new DOMDocument('1.0', 'utf-8');
 
-$doc->formatOutput = true;
+$doc->formatOutput = false;
 
 $root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item');
 $doc->appendChild($root);
