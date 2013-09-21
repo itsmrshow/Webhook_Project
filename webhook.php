@@ -124,7 +124,7 @@ die;
 } 
 $cc = new cURL(); 
 //$cc->get('http://requestb.in/13w5d631'); 
-$cc->post('http://requestb.in/13w5d631',$doc->saveXML()); 
+$cc->post('http://seccareccia.crisply.com/api/activity_items.xml',$doc->saveXML()); 
 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
