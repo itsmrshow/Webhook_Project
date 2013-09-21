@@ -1,5 +1,4 @@
 <?php
-import HttpRequest;
 //Strips all slashes in an array
 function stripslashes_deep($value){
     $value = is_array($value) ?
