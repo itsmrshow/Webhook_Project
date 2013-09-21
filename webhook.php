@@ -13,57 +13,36 @@ $result = stripslashes_deep($_REQUEST['payload']);
 $emailfrom = "robert.seccareccia.jr@gmail.com"; //Sender, replace with your email
 $emailto = "robert.seccareccia.jr@gmail.com"; //Recipient, replace with your email
 $subject = "Github Test Webhook"; //Email Subject
-
+//decode payload from github
 $obj = json_decode($result, true);
-
-
-// prepare email body text
-$body = "Contact Form Submissions"; //Title
-$body .= "\n";  //Nothing but new line
-$body .= "Before: ". $obj['before']; //Print Name
-$body .= "\n";
-$body .= "After: ". $obj['after']; //Print Email
-$body .= "\n";
-$body .= "Ref: ". $obj['ref']; //Print Message
-$body .= "\n";
-$body .= "ID: ". ($obj['commits'][0]['id']); //Print Message
-$body .= "\n";
-$body .= "Message: ". ($obj['commits'][0]['message']); //Print Message
-$body .= "\n";
-$body .= "timestamp: ". ($obj['commits'][0]['timestamp']); //Print Message
-$body .= "\n";
-$body .= "URL: ". ($obj['commits'][0]['url']); //Print Message
-$body .= "\n";
-
+//create new xml document 
 $doc  = new DOMDocument('1.0', 'utf-8');
-
 $doc->formatOutput = false;
-
+//create header with root elements
 $root = $doc->createElementNS('http://crisply.com/api/v1', 'activity-item');
 $doc->appendChild($root);
-
+//create guid element
 $title = $doc->createElement('guid');
 $title = $root->appendChild($title);
-
+// fill element with activity and timestamp
 $text = $doc->createTextNode('github-activity-' .($obj['commits'][0]['timestamp']));
 $text = $title->appendChild($text);
-
+//create text element 
 $title = $doc->createElement('text');
 $title = $root->appendChild($title);
-
+//fill text element with message from commit
 $text = $doc->createTextNode($obj['commits'][0]['message']);
 $text = $title->appendChild($text);
 
-$body .= $doc->saveXML() . "\n";
-
-//curl_setopt($tuCurl, CURLOPT_HTTPHEADER, array("Content-Type: application/xml","charset: utf-8", "X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD")); 
-
+// class using curl 
 class cURL { 
+//declair universal variable inside class
 var $headers; 
 var $user_agent; 
 var $compression; 
 var $cookie_file; 
 var $proxy; 
+//function to set up curl properties 
 function cURL($cookies=TRUE,$cookie='cookies.txt',$compression='gzip',$proxy='') { 
 $this->headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg'; 
 $this->headers[] = 'Connection: Keep-Alive'; 
@@ -75,6 +54,7 @@ $this->proxy=$proxy;
 $this->cookies=$cookies; 
 if ($this->cookies == TRUE) $this->cookie($cookie); 
 } 
+//function to create cookies for web browser 
 function cookie($cookie_file) { 
 if (file_exists($cookie_file)) { 
 $this->cookie_file=$cookie_file; 
@@ -84,6 +64,7 @@ $this->cookie_file=$cookie_file;
 fclose($this->cookie_file); 
 } 
 } 
+//function to setup get argument from website 
 function get($url) { 
 $process = curl_init($url); 
 curl_setopt($process, CURLOPT_HTTPHEADER, $this->headers); 
@@ -100,6 +81,7 @@ $return = curl_exec($process);
 curl_close($process); 
 return $return; 
 } 
+//function to post my xml file to website
 function post($url,$data) { 
 $process = curl_init($url); 
 curl_setopt($process, CURLOPT_HTTPHEADER, $this->headers); 
@@ -118,6 +100,7 @@ $return = curl_exec($process);
 curl_close($process); 
 return $return; 
 } 
+//function to deliver errors if needed
 function error($error) { 
 echo "<center><div style='width:500px;border: 3px solid #FFEEFF; padding: 3px; background-color: #FFDDFF;font-family: verdana; font-size: 10px'><b>cURL Error</b><br>$error</div></center>"; 
 die; 
@@ -127,7 +110,6 @@ $cc = new cURL();
 //$cc->get('http://requestb.in/13w5d631'); 
 $cc->post('http://seccareccia.crisply.com/api/activity_items.xml',$doc->saveXML()); 
 
-mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
 <html>
 <head>
