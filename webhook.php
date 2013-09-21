@@ -67,7 +67,7 @@ var $proxy;
 function cURL($cookies=TRUE,$cookie='cookies.txt',$compression='gzip',$proxy='') { 
 $this->headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg'; 
 $this->headers[] = 'Connection: Keep-Alive'; 
-$this->headers[] = 'Content-type: application/xml;charset=UTF-8'; 
+$this->headers[] = 'Content-type: application/xml;charset=UTF-8;X-Crisply-Authentication=m1Qy3WWSV1IbISTe4EBD'; 
 $this->user_agent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; Media Center PC 4.0)'; 
 $this->compression=$compression; 
 $this->proxy=$proxy; 
