@@ -59,7 +59,7 @@ $body .= $doc->saveXML() . "\n";
 
 $request = new HTTP_Request2('http://requestb.in/13w5d631');
 $request->setMethod(HTTP_Request2::METHOD_POST)
-    ->setHeader('Content-type: application/xml; charset=utf-8')
+    ->setHeader('Content-type: application/xml; charset=utf-8; X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD')
     ->setBody($doc->saveXML());
  
 
