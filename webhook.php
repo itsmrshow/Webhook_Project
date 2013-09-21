@@ -57,11 +57,35 @@ $text = $title->appendChild($text);
 $body .= $doc->saveXML() . "\n";
 
 
-$request = new HTTP_Request2('http://requestb.in/13w5d631');
-$request->setMethod(HTTP_Request2::METHOD_POST)
-    ->setHeader('Content-type: application/xml; charset=utf-8; X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD')
-    ->setBody($doc->saveXML());
+
+'Content-type: application/xml; charset=utf-8; X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD')
+
  
+$tuCurl = curl_init(); 
+curl_setopt($tuCurl, CURLOPT_URL, "http://requestb.in/13w5d631"); 
+curl_setopt($tuCurl, CURLOPT_PORT , 443); 
+curl_setopt($tuCurl, CURLOPT_VERBOSE, 0); 
+curl_setopt($tuCurl, CURLOPT_HEADER, 0); 
+curl_setopt($tuCurl, CURLOPT_SSLVERSION, 3); 
+curl_setopt($tuCurl, CURLOPT_SSLCERT, getcwd() . "/client.pem"); 
+curl_setopt($tuCurl, CURLOPT_SSLKEY, getcwd() . "/keyout.pem"); 
+curl_setopt($tuCurl, CURLOPT_CAINFO, getcwd() . "/ca.pem"); 
+curl_setopt($tuCurl, CURLOPT_POST, 1); 
+curl_setopt($tuCurl, CURLOPT_SSL_VERIFYPEER, 1); 
+curl_setopt($tuCurl, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($tuCurl, CURLOPT_POSTFIELDS, $doc->saveXML()); 
+curl_setopt($tuCurl, CURLOPT_HTTPHEADER, array("Content-Type: application/xml","charset: utf-8", "X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD")); 
+
+$tuData = curl_exec($tuCurl); 
+if(!curl_errno($tuCurl)){ 
+  $info = curl_getinfo($tuCurl); 
+  echo 'Took ' . $info['total_time'] . ' seconds to send a request to ' . $info['url']; 
+} else { 
+  echo 'Curl error: ' . curl_error($tuCurl); 
+} 
+
+curl_close($tuCurl); 
+echo $tuData; 
 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
 ?>
