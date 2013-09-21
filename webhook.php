@@ -58,23 +58,15 @@ $text = $title->appendChild($text);
 $body .= $doc->saveXML() . "\n";
 
 
-$username = "m1Qy3WWSV1IbISTe4EBD";
-$password = "";
-
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml', 'charset: UTF-8', 'X-Crisply-Authentication: m1Qy3WWSV1IbISTe4EBD'));
-curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_URL, 'seccareccia.crisply.com/api/activity_items.xml'); 
-curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $doc->saveXML()); 
- 
-$result = curl_exec($ch); 
- 
-//Close the handle
-curl_close($ch);
+$r = new HttpRequest('http://requestb.in/13w5d631', HttpRequest::METH_POST);
+$r->addHeaders(array('Content-Type' => 'application/xml', 'charset' => 'UTF-8', 'X-Crisply-Authentication' => 'm1Qy3WWSV1IbISTe4EBD'));
+$r->setOptions(array('cookies' => array('lang' => 'de')));
+$r->addRawPostData($doc->saveXML());
+try {
+    echo $r->send()->getBody();
+} catch (HttpException $ex) {
+    echo $ex;
+}
  
 
 mail($emailto, $subject, $body, "From: <$emailfrom>");
