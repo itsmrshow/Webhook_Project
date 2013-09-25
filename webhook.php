@@ -1,4 +1,9 @@
 <?php
+//Created By:Robert Seccareccia
+//September 21 2013
+//Github to Crisply Webhook Handler
+
+
 //Strips all slashes in an array
 function stripslashes_deep($value){
     $value = is_array($value) ?
@@ -36,7 +41,7 @@ $text = $title->appendChild($text);
 
 // class using curl 
 class cURL { 
-//declair universal variable inside class
+// universal variables for use inside class
 var $headers; 
 var $user_agent; 
 var $compression; 
@@ -44,6 +49,7 @@ var $cookie_file;
 var $proxy; 
 //function to set up curl properties 
 function cURL($cookies=TRUE,$cookie='cookies.txt',$compression='gzip',$proxy='') { 
+//headers that include the x-crisply-authentication to allow crisply api access
 $this->headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg'; 
 $this->headers[] = 'Connection: Keep-Alive'; 
 $this->headers[] = 'Content-type: application/xml; charset=UTF-8'; 
@@ -54,7 +60,7 @@ $this->proxy=$proxy;
 $this->cookies=$cookies; 
 if ($this->cookies == TRUE) $this->cookie($cookie); 
 } 
-//function to create cookies for web browser 
+//function to create cookies for web browser session
 function cookie($cookie_file) { 
 if (file_exists($cookie_file)) { 
 $this->cookie_file=$cookie_file; 
@@ -64,39 +70,27 @@ $this->cookie_file=$cookie_file;
 fclose($this->cookie_file); 
 } 
 } 
-//function to setup get argument from website 
-function get($url) { 
-$process = curl_init($url); 
-curl_setopt($process, CURLOPT_HTTPHEADER, $this->headers); 
-curl_setopt($process, CURLOPT_HEADER, 0); 
-curl_setopt($process, CURLOPT_USERAGENT, $this->user_agent); 
-if ($this->cookies == TRUE) curl_setopt($process, CURLOPT_COOKIEFILE, $this->cookie_file); 
-if ($this->cookies == TRUE) curl_setopt($process, CURLOPT_COOKIEJAR, $this->cookie_file); 
-curl_setopt($process,CURLOPT_ENCODING , $this->compression); 
-curl_setopt($process, CURLOPT_TIMEOUT, 30); 
-if ($this->proxy) curl_setopt($process, CURLOPT_PROXY, $this->proxy); 
-curl_setopt($process, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1); 
-$return = curl_exec($process); 
-curl_close($process); 
-return $return; 
-} 
 //function to post my xml file to website
 function post($url,$data) { 
 $process = curl_init($url); 
+//establish headers
 curl_setopt($process, CURLOPT_HTTPHEADER, $this->headers); 
 curl_setopt($process, CURLOPT_HEADER, 1); 
 curl_setopt($process, CURLOPT_USERAGENT, $this->user_agent); 
+//if statement for cookies 
 if ($this->cookies == TRUE) curl_setopt($process, CURLOPT_COOKIEFILE, $this->cookie_file); 
 if ($this->cookies == TRUE) curl_setopt($process, CURLOPT_COOKIEJAR, $this->cookie_file); 
 curl_setopt($process, CURLOPT_ENCODING , $this->compression); 
 curl_setopt($process, CURLOPT_TIMEOUT, 30); 
+//if statment if using a proxy
 if ($this->proxy) curl_setopt($process, CURLOPT_PROXY, $this->proxy); 
+//postfields for passing data to website
 curl_setopt($process, CURLOPT_POSTFIELDS, $data); 
 curl_setopt($process, CURLOPT_RETURNTRANSFER, 1); 
 curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1); 
 curl_setopt($process, CURLOPT_POST, 1); 
 $return = curl_exec($process); 
+//once done close and return 
 curl_close($process); 
 return $return; 
 } 
@@ -107,7 +101,6 @@ die;
 } 
 } 
 $cc = new cURL(); 
-//$cc->get('http://requestb.in/13w5d631'); 
 $cc->post('http://seccareccia.crisply.com/api/activity_items.xml',$doc->saveXML()); 
 
 ?>
